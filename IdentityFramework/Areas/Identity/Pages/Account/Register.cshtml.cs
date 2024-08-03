@@ -124,8 +124,8 @@ namespace IdentityFramework.Areas.Identity.Pages.Account
                 // Set the additional properties
                 user.FirstName = Input.FirstName;
                 user.LastName = Input.LastName;
-
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                user.UserName = Input.Email.Split('@')[0];
+                await _userStore.SetUserNameAsync(user, user.UserName, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
